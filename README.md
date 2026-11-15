@@ -4,13 +4,13 @@ Parameter-efficient fine-tuning (PEFT) experiments on large language models.
 
 ## 1. Persian instruction tuning of Gemma-2 2B (`persian-gemma/`)
 
-Fine-tuned `google/gemma-2-2b-it` on Persian instruction data (math reasoning, multiple-choice QA and essay writing) and compared three approaches:
+Fine-tuned `google/gemma-2-2b-it` on the Persian conversational dataset [`miladmim/slim-orca-dedup-chat-50k-persian`](https://huggingface.co/datasets/miladmim/slim-orca-dedup-chat-50k-persian) (system / user / assistant format) and compared three approaches. The models were then tested on sample prompts covering math reasoning, multiple-choice QA and essay writing.
 
-| Method | Trainable parameters | Result |
-|---|---|---|
-| Prompt Tuning (PEFT) | ~46K (~0.002%) | Follows instructions and produces coherent Persian at very low cost |
-| LoRA (PEFT) | ~3.2M (~0.12%) | Best overall output quality and the best quality/efficiency trade-off |
-| Partial-layer fine-tuning | ~353M (~14%) | Heavy on memory; the model degraded and repeated its input |
+| Method | Trainable parameters | Validation loss | Result |
+|---|---|---|---|
+| Prompt Tuning (PEFT) | ~46K (~0.002%) | 2.20 | Follows instructions and produces coherent Persian at very low cost |
+| LoRA (PEFT) | ~3.2M (~0.12%) | **1.75** | Lowest validation loss and the most detailed answers |
+| Partial-layer fine-tuning | ~353M (~14%) | - | Heavy on memory; the model degraded and repeated its input |
 
 - `gemma_persian_prompt_tuning_vs_lora.ipynb`: data preparation, base-model evaluation, prompt tuning, LoRA and the comparative analysis
 - `gemma_partial_layer_finetuning.ipynb`: traditional fine-tuning of selected layers
