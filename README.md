@@ -16,11 +16,13 @@ Fine-tuned `google/gemma-2-2b-it` on the Persian conversational dataset [`miladm
 - `gemma_partial_layer_finetuning.ipynb`: traditional fine-tuning of selected layers
 - `results/`: generated outputs of the base, prompt-tuned and LoRA models
 
-## 2. GPT-2 sentiment classification with LoRA (`gpt2-imdb-sentiment/`)
+## 2. GPT-2 sentiment classification on IMDb (`gpt2-imdb-sentiment/`)
 
-Fine-tuned GPT-2 with a classification head on the IMDb reviews dataset, with an additional LoRA implementation through PEFT.
+Adapted GPT-2 for binary sentiment classification of IMDb movie reviews (5,000 training and 1,000 test reviews).
 
-- Test accuracy: **74.6%** (F1: 0.746)
+- **Frozen GPT-2 + classification head:** the pre-trained GPT-2 was frozen and only a small classification head (1,538 parameters) was trained.
+  Test accuracy: **74.6%** (F1: 0.746, perplexity: 1.89).
+- **LoRA setup (PEFT):** LoRA adapters (rank 16, on the `c_attn` and `c_proj` attention layers) were added to GPT-2, reducing trainable parameters to about 1.3% of the model. The LoRA model was implemented and tested, but not fully trained or evaluated.
 
 ## Tech stack
 Python, PyTorch, Hugging Face Transformers, PEFT, Datasets
